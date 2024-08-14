@@ -5,7 +5,7 @@ function Header() {
     return (
         <header className={styles.header}>
             <h1 className={styles.title}>
-                <a href="#" className={styles.home_link}>
+                <a href="/" className={styles.home_link}>
                     <span className="blind">Newbstock</span>
                 </a>
             </h1>
