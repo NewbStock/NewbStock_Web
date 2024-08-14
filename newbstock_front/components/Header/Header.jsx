@@ -12,10 +12,10 @@ function Header() {
             <nav>
                 <ul className={styles.country_list}>
                     <li className={styles.item}>
-                        <a href="#" className={styles.link}>국내</a>
+                        <a href="#" className={[styles.link, styles.active].join(" ")}>국내</a>
                     </li>
                     <li className={styles.item}>
-                        <a href="#" className={styles.link}>미국</a>
+                        <a href="#" className={[styles.link].join(" ")}>미국</a>
                     </li>
                 </ul>
             </nav>
