@@ -4,13 +4,10 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: flex-start;
+
     height: 90%;
-    
     margin: 0 auto;
     padding: 20px;
-
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .calcontainer h1 {
@@ -19,7 +16,7 @@
     margin-bottom: 40px;
     text-align: center;
     color: #ffffff;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
 }
 
 .formGroup {
@@ -27,18 +24,21 @@
 }
 
 .label {
-    color: #ffffff;
+    font-size: 18px;
+    color: #d0d0d0;
     display: block;
-    margin-bottom: 5px;
     font-weight: bold;
+    margin-bottom:10px;
 }
 
 .input, .select {
-    width: 100%;
+    flex: 1;
+    width: 300px;
     padding: 8px;
     border: 1px solid #ddd;
-    border-radius: 4px;
+    border-radius: 2px;
     font-size: 16px;
+    margin-bottom: 15px;
 }
 
 .button {
@@ -56,6 +56,60 @@
 
 .button:hover {
     background-color: #0056b3;
+}
+
+.stockInputContainer {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.recommendedStocks {
+    display: flex;
+    gap: 5px;
+}
+
+.recommendedStockButton {
+    margin-top: 3px;
+    padding: 6px 12px;
+    background-color: #b4bedc;
+    border: 1px solid #b4bedc;
+    border-radius: 2px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    white-space: nowrap;
+}
+
+.recommendedStockButton:hover {
+    background-color: #e0e0e0;
+}
+
+.priceInputContainer {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.recommendedAmounts {
+    display: flex;
+    gap: 5px;
+}
+
+.recommendedAmountButton {
+    margin-top: 3px;
+    padding: 6px 12px;
+    background-color: #b4bedc;
+    border: 1px solid #b4bedc;
+    border-radius: 2px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    white-space: nowrap;
+}
+
+.recommendedAmountButton:hover {
+    background-color: #e0e0e0;
 }
 
 /*

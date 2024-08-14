@@ -9,11 +9,22 @@ const Calculator = () => {
     const [initialDate, setInitialDate] = useState('');
     const [regularInvestment, setRegularInvestment] = useState('');
     const [investmentCycle, setInvestmentCycle] = useState('monthly');
+    
+    const recommendedStocks = ['삼성전자', 'SK하이닉스', 'LG에너지솔루션'];
+    const recommendedAmounts = [50000, 100000, 1000000];
 
     const handleSubmit = (e) => {
         e.preventDefault();
         // Here you would handle the form submission, potentially calling an API or performing calculations
         console.log({ stock, initialInvestment, initialDate, regularInvestment, investmentCycle });
+    };
+
+    const handleRecommendedStockClick = (recommendedStock) => {
+        setStock(recommendedStock);
+    };
+
+    const handleRecommendedAmountClick = (amount) => {
+        setInitialInvestment(amount);
     };
 
     return (
@@ -23,25 +34,53 @@ const Calculator = () => {
                 <form onSubmit={handleSubmit}>
                     <div className={styles.formGroup}>
                         <label className={styles.label} htmlFor="stock">1. 종목 선택하기</label>
-                        <input
-                            className={styles.input}
-                            type="text"
-                            id="stock"
-                            value={stock}
-                            onChange={(e) => setStock(e.target.value)}
-                            required
-                        />
+                        <div className={styles.stockInputContainer}>
+                            <input
+                                className={styles.input}
+                                type="text"
+                                id="stock"
+                                value={stock}
+                                onChange={(e) => setStock(e.target.value)}
+                                required
+                            />
+                            <div className={styles.recommendedStocks}>
+                                {recommendedStocks.map((recommendedStock, index) => (
+                                    <button
+                                        key={index}
+                                        type="button"
+                                        className={styles.recommendedStockButton}
+                                        onClick={() => handleRecommendedStockClick(recommendedStock)}
+                                    >
+                                        {recommendedStock}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
                     </div>
                     <div className={styles.formGroup}>
                         <label className={styles.label} htmlFor="initialInvestment">2. 최초 투자 금액 설정하기</label>
-                        <input
-                            className={styles.input}
-                            type="number"
-                            id="initialInvestment"
-                            value={initialInvestment}
-                            onChange={(e) => setInitialInvestment(e.target.value)}
-                            required
-                        />
+                        <div className={styles.priceInputContainer}>
+                            <input
+                                className={styles.input}
+                                type="number"
+                                id="initialInvestment"
+                                value={initialInvestment}
+                                onChange={(e) => setInitialInvestment(e.target.value)}
+                                required
+                            />
+                             <div className={styles.recommendedAmounts}>
+                                {recommendedAmounts.map((amount, index) => (
+                                    <button
+                                        key={index}
+                                        type="button"
+                                        className={styles.recommendedAmountButton}
+                                        onClick={() => handleRecommendedAmountClick(amount)}
+                                    >
+                                        {amount.toLocaleString()}원
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
                     </div>
                     <div className={styles.formGroup}>
                         <label className={styles.label} htmlFor="initialDate">3. 최초 투자 날짜 선택하기</label>
@@ -81,7 +120,7 @@ const Calculator = () => {
                     <button className={styles.button} type="submit">계산하기</button>
                 </form>
             </div>
-            </ContentsLayer>
+        </ContentsLayer>
 
     );
 };
