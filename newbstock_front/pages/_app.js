@@ -1,5 +1,4 @@
-import React from 'react';
-import YouTube from 'react-youtube';
+import React, { useState, useEffect } from 'react';
 import CommonLayer from '../components/layout/CommonLayer';
 import InnerWrapper from '../components/layout/InnerWrapper';
 import ContentsLayer from '../components/layout/ContentsLayer';
@@ -9,28 +8,35 @@ import styles from '../styles/global.css'
 
 
 const App = () => {
+    const [isClient, setIsClient] = useState(false);
+
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
+
     return (
         <CommonLayer>
             <Header />
             <InnerWrapper>
-                <SideBar/>
-                <ContentsLayer>
-                    <div className={styles.container}>
-                        <div className={styles.videoContainer}>
-                            <video className={styles.video} controls muted autoPlay loop>
-                                <source src="videos/video.mp4" type="video/mp4" />
-                                Your browser does not support the video tag.
-                            </video>                           
-                        </div>
-                        <div className={styles.description}>
-                            <h1>Welcome to My Project</h1>
-                            <p>
-                                This is a brief description of the project. Here, you can explain what your project is about,
-                                its features, and any other relevant information you want the users to know.
-                            </p>
-                        </div>
+                <div style={{ display: 'flex' }}>
+                    <SideBar />
+                    <ContentsLayer>
+                    <div className="project-container">
+                            <div className="project-description">
+                                <h2>데브코스 데이터 엔지니어링 3기 최종 프로젝트</h2>
+                                <p>NewbStock은 주식 데이터의 실시간 처리와 배치 처리를 통해 데이터 파이프라인을 구성하여 주식에 대한 다양한 정보를 제공합니다</p>
+                                <p>실시간 급락 종목에 관한 뉴스에서부터 만약 과거에 투자했다면 얻을 수 있는 과거 수익률, 주린이를 위한 모든 정보까지</p> 
+                                <p>아래 사용 예시 동영상을 시청해보세요!</p>
+                            </div>
+                        {isClient && (
+                            <video className="project-video" controls>
+                            <source src="/videos/video.mp4" type="video/mp4" />
+                            Your browser does not support the video tag.
+                            </video>
+                        )}
                     </div>
-                </ContentsLayer>
+                    </ContentsLayer>
+                </div>
             </InnerWrapper>
         </CommonLayer>
     );
