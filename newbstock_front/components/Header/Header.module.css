@@ -1,0 +1,11 @@
+@charset "utf-8";
+
+.header {
+    padding: 20px;
+    background-color: #2d2d35;
+}
+.title {
+    font-size: 20px;
+    line-height: 80px;
+    color : #d0d0d0;
+}
