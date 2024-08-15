@@ -3,9 +3,9 @@ import styles from './Layout.module.css';
 
 function InnerWrapper(props) {
     return (
-        <main className={styles.main}>
+        <div className={styles.wrap}>
             {props.children}
-        </main>        
+        </div>
     );
 }
 
