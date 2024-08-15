@@ -4,7 +4,8 @@ import InnerWrapper from '../components/layout/InnerWrapper';
 import ContentsLayer from '../components/layout/ContentsLayer';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
-import '../styles/global.css'
+import SideBar from '../components/SideBar/SideBar';
+import '../styles/global.css';
 
 const App = ({ Component, pageProps }) => {
     const [isClient, setIsClient] = useState(false);
@@ -15,15 +16,12 @@ const App = ({ Component, pageProps }) => {
 
     return (
         <CommonLayer>
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <Header />
-                <div style={{ display: 'flex', flex: 1 }}>
-                    <SideBar />
-                    <InnerWrapper>    
-                        <Component {...pageProps} isClient={isClient} />
-                    </InnerWrapper>
-                </div>
-            </div>
+            <Header />
+            <SideBar />
+            <InnerWrapper>    
+                <Component {...pageProps} isClient={isClient} />
+                <Footer />
+            </InnerWrapper>
         </CommonLayer>
     );
 };
