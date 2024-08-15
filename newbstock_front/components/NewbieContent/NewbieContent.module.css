@@ -1,0 +1,13 @@
+@charset "utf-8";
+
+.chart_list {
+    display: flex;
+    margin-top: 20px;
+}
+.chart_list .item {
+    flex: 1 1 100%;
+    border: 1px solid #fff;
+}
+.chart_list .item + .item {
+    margin-left: 20px;
+}
