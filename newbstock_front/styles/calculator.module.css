@@ -5,7 +5,6 @@
     flex-direction: column;
     justify-content: flex-start;
 
-    height: 90%;
     margin: 0 auto;
     padding: 20px;
 }
@@ -32,7 +31,6 @@
 }
 
 .input, .select {
-    flex: 1;
     width: 300px;
     padding: 8px;
     border: 1px solid #ddd;

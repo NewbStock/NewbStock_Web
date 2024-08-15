@@ -6,15 +6,15 @@ function SideBar() {
     return (
         <div className={styles.sidebar}>
             <aside className={styles.imageContainer}>
-                <a href="/news">
+                <a href="/news" className={styles.service_link}>
                     <img src="image/news.png" alt="News" className={styles.sidebarImage} />
                 </a>
 
-                <a href="/calculator">
+                <a href="/calculator" className={styles.service_link}>
                     <img src="image/calculator.png" alt="Calculator" className={styles.sidebarImage} />
                 </a>
 
-                <a href="/newbie">
+                <a href="/newbie" className={styles.service_link}>
                 <img src="image/newbie.png" alt="Newbie" className={styles.sidebarImage} />
                 </a>
             </aside>

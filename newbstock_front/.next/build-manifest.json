@@ -26,6 +26,11 @@
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/calculator.js"
+    ],
+    "/newbie": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/newbie.js"
     ]
   },
   "ampFirstPages": []
