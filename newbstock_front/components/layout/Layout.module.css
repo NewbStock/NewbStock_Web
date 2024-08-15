@@ -1,5 +1,26 @@
 @charset "utf-8";
 
+.commonlayer {
+    background-color: #202026; /* 전체 배경 색 */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.innerwrapper {
+    display: flex;
+    margin: 0 auto;
+    background-color: #202026; /* 내용물의 배경 색 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.contentslayer {
+    flex: 1;
+    padding: 20px;
+    background-color: #202026; /* 콘텐츠 배경 색 */
+}
+
 .container {
     display: flex;
     flex-direction: column;
