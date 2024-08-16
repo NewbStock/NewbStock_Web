@@ -11,3 +11,6 @@
 .chart_list .item + .item {
     margin-left: 20px;
 }
+.chart {
+    width: 100%;
+}
