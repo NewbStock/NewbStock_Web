@@ -27,7 +27,7 @@
     content: '';
     display: block;
     height: 40px;
-    background: url("../../static/images/NewbStock.png");
+    background: url("../../public/image/NewbStock.png");
     background-repeat: no-repeat;
     background-position: 0 0;
     background-size: auto 40px;

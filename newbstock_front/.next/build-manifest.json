@@ -27,10 +27,17 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
+<<<<<<< HEAD
     "/calculator": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/calculator.js"
+=======
+    "/newbie": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/newbie.js"
+>>>>>>> origin/jh
     ]
   },
   "ampFirstPages": []
