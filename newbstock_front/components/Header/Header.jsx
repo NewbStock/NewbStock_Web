@@ -13,10 +13,10 @@ function Header(is_nav=true) {
                 <nav>
                     <ul className={styles.country_list}>
                         <li className={styles.item}>
-                            <a href="#" className={[styles.link, styles.active].join(" ")}>국내</a>
+                            <a href="kr/" className={[styles.link, styles.active].join(" ")}>국내</a>
                         </li>
                         <li className={styles.item}>
-                            <a href="#" className={[styles.link].join(" ")}>미국</a>
+                            <a href="us/" className={[styles.link].join(" ")}>미국</a>
                         </li>
                     </ul>
                 </nav>
@@ -25,4 +25,4 @@ function Header(is_nav=true) {
     );
 }
 
-export default Header
+export default Header;

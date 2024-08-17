@@ -2,10 +2,7 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-<<<<<<< HEAD
-  "/": "pages/index.js",
-  "/calculator": "pages/calculator.js"
-=======
-  "/newbie": "pages/newbie.js"
->>>>>>> origin/jh
+  "/calculator": "pages/calculator.js",
+  "/news": "pages/news.js",
+  "/result": "pages/result.js"
 }

@@ -3,7 +3,7 @@ import ContentsLayer from '../components/layout/ContentsLayer';
 import NewbieContent from '../components/NewbieContent/NewbieContent';
 import styles from '../styles/newbie.module.css';
 
-const Calculator = () => {
+const Newbie = ({ isClient }) => {
     const [RateChange, setRateChange] = useState('monthly');
 
     return (
@@ -45,4 +45,4 @@ const Calculator = () => {
     );  
 };  
 
-export default Calculator;
+export default Newbie;
