@@ -87,7 +87,7 @@ const Calculator = () => {
                     </div>
             ) : (
              <div className={styles.calcontainer}>
-                <h1 className={styles.h1}>만약 그 때 샀다면... 내 수익률은?</h1>
+                <h1 className={styles.h1}>만약 그 때 샀다면... 내 수익률은? 💸</h1>
                 <div className={styles.formcontainer}>
                 <form onSubmit={handleSubmit}>
                     <div className={styles.formGroup}>
