@@ -1,26 +1,34 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styles from './Header.module.css';
 
-function Header() {
+export default function Header({ setCountry }) {
+    const [isCheck, setCheck] = useState(true);
+
+    const changeToKO = () => {
+        setCountry('kr');
+        setCheck(true);
+    };
+    const changeToUS = () => {
+        setCountry('us');
+        setCheck(false);
+    };
     return (
         <header className={styles.header}>
             <h1 className={styles.title}>
-                <a href="#" className={styles.home_link}>
+                <a href="/" className={styles.home_link}>
                     <span className="blind">Newbstock</span>
                 </a>
             </h1>
             <nav>
                 <ul className={styles.country_list}>
                     <li className={styles.item}>
-                        <a href="#" className={[styles.link, styles.active].join(" ")}>국내</a>
+                        <button className={[styles.link, isCheck && styles.active].join(" ")} onClick={changeToKO}>국내</button>
                     </li>
                     <li className={styles.item}>
-                        <a href="#" className={[styles.link].join(" ")}>미국</a>
+                        <button className={[styles.link, !isCheck && styles.active].join(" ")} onClick={changeToUS}>미국</button>
                     </li>
                 </ul>
             </nav>
         </header>
     );
 }
-
-export default Header

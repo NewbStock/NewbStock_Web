@@ -1,6 +1,15 @@
 import React from 'react';
 import styles from './Layout.module.css';
 
+const ContentsLayer = ({ children }) => {
+    return (
+        <div className={styles.contentslayer}>
+            {children}
+        </div>
+    );
+};
+
+/*
 function ContentsLayer(props) {
     return (
         <section className={styles.content}>
@@ -8,5 +17,7 @@ function ContentsLayer(props) {
         </section>        
     );
 }
+"""
+*/
 
-export default ContentsLayer
+export default ContentsLayer;

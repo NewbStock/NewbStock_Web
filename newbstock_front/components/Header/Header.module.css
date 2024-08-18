@@ -1,11 +1,17 @@
 @charset "utf-8";
 
 .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 24px 40px;
+    padding: 24px 40px 24px 150px;
+    border-bottom: 2px solid #202026;
     background-color: #2d2d35;
+    z-index: 2000;
 }
 .title {
     flex: 0 1 auto;
@@ -21,7 +27,7 @@
     content: '';
     display: block;
     height: 40px;
-    background: url("../../static/images/NewbStock.png");
+    background: url("../../public/image/NewbStock.png");
     background-repeat: no-repeat;
     background-position: 0 0;
     background-size: auto 40px;
