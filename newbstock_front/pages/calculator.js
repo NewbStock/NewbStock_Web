@@ -146,7 +146,7 @@ const Calculator = ({ country }) => {
                             </div>
                             <div className={styles.r}>
                                 <p className={styles.resultTitle}>전체 손익금</p>
-                                <p className={styles.resultValue}>{(result.total_investment ?? 0).toLocaleString()} {currencySymbol}</p>
+                                <p className={styles.resultValue}>{(result.total_profit_loss ?? 0).toLocaleString()} {currencySymbol}</p>
                             </div>
                         </div>
                         <button onClick={() => setShowResult(false)}>다시 계산하기</button>
