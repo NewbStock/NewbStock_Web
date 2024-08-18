@@ -99,7 +99,7 @@ const Newbie = () => {
                     <option value="">날짜 선택</option>
                     {dates.map((item, index) => (
                         <option key={index} value={item.date}>
-                            {item.name} - {item.date}
+                            {item.name} - {item.date} - {item.change}%
                         </option>
                     ))}
                 </select>
