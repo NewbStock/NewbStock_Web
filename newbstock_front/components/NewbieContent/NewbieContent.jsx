@@ -1,22 +1,13 @@
 import React from 'react';
+import { Line } from 'react-chartjs-2';
 import styles from './NewbieContent.module.css';
 
-function NewbieContent() {
+function NewbieContent({ data, options }) {
     return (
-        <ul className={styles.chart_list}>
-            <li className={styles.item}>
-                <iframe
-                    src="http://127.0.0.1:8808/explore/?standalone=1&slice_id=200"
-                    frameBorder="0"
-                    className={styles.chart}
-                >
-                </iframe>
-            </li>
-            <li className={styles.item}>
-                <iframe src="" frameBorder="0" className={styles.chart}></iframe>
-            </li>
-        </ul>
+        <div className={styles.chart_container}>
+            <Line data={data} options={options} />
+        </div>
     );
 }
 
-export default NewbieContent
+export default NewbieContent;

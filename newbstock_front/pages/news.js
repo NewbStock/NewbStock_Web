@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ContentsLayer from '../components/layout/ContentsLayer';
 import styles from '../styles/news.module.css'
-import axios from 'axios';
+import { apis } from '../api/request';
 
 const News = ({ country }) => {
     const [riseData, setRiseData] = useState([]);
@@ -11,18 +11,18 @@ const News = ({ country }) => {
         const fetchData = async () => {
             try {
                 // 상승 종목 데이터 가져오기
-                const riseResponse = await axios.get(`http://newbstock.de.dev-cos.com/top3/upticker/?country=${country}`);
+                const riseResponse = await serverApi.getUpTicker(country);
                 const riseStocks = riseResponse.data;
 
                 // 하락 종목 데이터 가져오기
-                const dropResponse = await axios.get(`http://newbstock.de.dev-cos.com/top3/downticker/?country=${country}`);
+                const dropResponse = await serverApi.getDownTicker(country);
                 const dropStocks = dropResponse.data;
 
                 print("riseStocks", riseStocks)
                 
                 // 각 종목에 대한 뉴스 데이터 가져오기
                 const riseWithNews = await Promise.all(riseStocks.map(async (stock) => {
-                    const newsResponse = await axios.get(`http://newbstock.de.dev-cos.comtop3/top3/?country=${country}&ticker=${stock.ticker}`);
+                    const newsResponse = await serverApi.getTop3(country, stock.ticker);
                     print(newsResponse.data[0])
                     return { ...stock, news: newsResponse.data[0] };
                 }));
@@ -31,7 +31,7 @@ const News = ({ country }) => {
 
                 print("dropStocks", dropStocks)
                 const dropWithNews = await Promise.all(dropStocks.map(async (stock) => {
-                    const newsResponse = await axios.get(`http://newbstock.de.dev-cos.com/top3/top3/?country=${country}&ticker=${stock.ticker}`);
+                    const newsResponse = await serverApi.getTop3(country, stock.ticker);
                     print(newsResponse.data[0])
                     return { ...stock, news: newsResponse.data[0] };
                 }));

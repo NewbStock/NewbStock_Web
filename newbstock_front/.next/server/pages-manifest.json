@@ -2,6 +2,11 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
+<<<<<<< HEAD
   "/result": "pages/result.js",
+=======
+  "/newbie": "pages/newbie.js",
+  "/calculator": "pages/calculator.js",
+>>>>>>> origin/LSJ
   "/news": "pages/news.js"
 }
