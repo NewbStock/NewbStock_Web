@@ -1,16 +1,20 @@
-@charset "utf-8";
+.chart_container {
+    width: 100%; /* 차트가 부모 요소의 너비를 가득 채우도록 설정 */
+    padding: 20px; /* 차트 주변의 여백 */
+    background-color: #2a2a2a; /* 차트 컨테이너의 배경색 */
+    border-radius: 8px; /* 부드러운 모서리 */
+    margin-bottom: 20px; /* 아래 요소와의 간격 */
+}
 
-.chart_list {
-    display: flex;
-    margin-top: 20px;
+/* 추가적으로 필요한 경우에 대한 스타일들 */
+.chart_title {
+    font-size: 1.2em;
+    color: #ffffff;
+    margin-bottom: 10px;
+    text-align: center;
 }
-.chart_list .item {
-    flex: 1 1 100%;
-    border: 1px solid #fff;
-}
-.chart_list .item + .item {
-    margin-left: 20px;
-}
-.chart {
-    width: 100%;
+
+.chart_legend {
+    text-align: center;
+    color: #d0d0d0;
 }

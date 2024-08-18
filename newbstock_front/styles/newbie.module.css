@@ -1,40 +1,46 @@
-@charset "utf-8";
-
-.content_title {
-    margin-top: 20px;
-    font-size: 20px;
-    line-height: 24px;
-    color: #d9d9d9;
-}
-.desc_box {
-    display: inline-block;
-    margin-top: 20px;
+/* 전체 레이아웃 */
+.newscontainer {
+    background-color: #1a1a1a;
+    color: #ffffff;
     padding: 20px;
-    border-radius: 18px;
-    background-color: #d9d9d9;
-    font-size: 14px;
-    line-height: 20px;
-    vertical-align: top;
-}
-.category_list {
-    margin-top: 30px;
-    color: #d9d9d9;
-}
-.category_list .item {
-    padding: 30px 0;
-    border-top: 1px solid #d9d9d9;
-}
-.category_list .title_area {
-    display: flex;
-}
-.select {
-    width: 120px;
-    margin-left: auto;
-    font-size: 14px;
-    padding: 3px 0 3px 6px;
-}
-.category_list .title {
-    font-size: 18px;
-    line-height: 28px;
+    margin: 20px;
+    border-radius: 10px;
 }
 
+.pageTitle {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* 컨텐츠 섹션 */
+.contents {
+    margin-bottom: 20px;
+}
+
+/* 그리드 레이아웃 */
+.gridContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.gridItem {
+    background-color: #2a2a2a;
+    border-radius: 8px;
+    padding: 20px;
+    flex: 1 1 calc(50% - 40px); /* 2개의 아이템을 1행에 배치 */
+    min-width: 300px;
+    text-align: center;
+}
+
+.gridItem h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.gridItem p {
+    color: #d0d0d0;
+}
