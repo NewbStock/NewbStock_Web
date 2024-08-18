@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ContentsLayer from '../components/layout/ContentsLayer';
 import styles from '../styles/calculator.module.css'
-
+import { apis } from '../api/request'; 
 
 const Calculator = ({ country }) => {
     const [stock, setStock] = useState('');
@@ -11,8 +11,9 @@ const Calculator = ({ country }) => {
     const [investmentCycle, setInvestmentCycle] = useState('monthly');
     const [result, setResult] = useState(null);
     const [showResult, setShowResult] = useState(false);
-    
-    const recommendedStocks = country == 'kr' ? ['삼성전자', 'SK하이닉스', 'LG에너지솔루션'] : ['엔비디아', '테슬라', '마이크로소프트'];
+    const [thiscountry, setThiscountry] = useState(country);
+
+    const recommendedStocks = country == 'kr' ? ['삼성전자', 'SK하이닉스', 'LG에너지솔루션'] : ['엔비디아', '테슬라', '마이크로소프트', '애플'];
     const recommendedAmounts = country == 'kr' ? [50000, 100000, 1000000] : [50, 100, 1000];
     const recommendedRegularAmounts = country == 'kr' ? [10000, 50000, 100000] : [10, 50, 100];
     const currencySymbol = country === 'kr' ? '원' : '달러';
@@ -20,15 +21,52 @@ const Calculator = ({ country }) => {
     const temp = 'current country : ' + country
     console.log(temp)
 
+    useEffect(() => {
+        resetState();
+        setThiscountry(country);
+        console.log(thiscountry)
+    }, [country]);
+
+    useEffect(() => {
+        if (showResult === false) {
+            resetState();
+        }
+    }, [result, showResult]);
+
+    const resetState = () => {
+        setStock('');
+        setInitialInvestment(0);
+        setInitialDate('');
+        setRegularInvestment(0);
+        setInvestmentCycle('monthly');
+        setResult(null);
+        setShowResult(false);
+    };
+
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
         // Here you would handle the form submission, potentially calling an API or performing calculations
-        console.log({ stock, initialInvestment, initialDate, regularInvestment, investmentCycle });
- 
+        console.log({ thiscountry, stock, initialInvestment, initialDate, regularInvestment, investmentCycle });
+        
+        const tickerMap = {
+            "엔비디아" : "NVIDIA Corporation",
+            "테슬라": "TSLA",
+            "마이크로소프트": "MSFT",
+            "애플": "AAPL"
+        }
+
+        let submissionStock = stock;
+
+
+        if (thiscountry === 'us') {
+            submissionStock = tickerMap[stock] || stock;
+        }
+    
         const formData = {
-            country: country,
-            company: stock,
+            country: thiscountry,
+            company: submissionStock,
             initial_amount: parseInt(initialInvestment),
             initial_date: initialDate,
             additional_amount: regularInvestment ? parseInt(regularInvestment) : 0,
@@ -36,7 +74,7 @@ const Calculator = ({ country }) => {
         };
 
         // API 호출
-        fetch('http://newbstock.de.dev-cos.com/profit/submit-data/', {
+        fetch('http://newbstock.de.dev-cos.com/profit/submit-data', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -72,6 +110,22 @@ const Calculator = ({ country }) => {
         const calculatedDate = new Date(currentDate.setMonth(currentDate.getMonth() - months));
         setInitialDate(calculatedDate.toISOString().split('T')[0]);
     };
+ 
+     // frequency를 한글로 변환
+     const frequencyMap = {
+         "weekly": "주",
+         "biweekly": "격주",
+         "monthly": "월",
+         "bimonthly": "격월"
+     };
+
+     
+    const year = initialDate ? initialDate.substring(0, 4) : '';
+    const month = initialDate ? initialDate.substring(5, 7) : '';
+    const day = initialDate ? initialDate.substring(8, 10) : '';
+
+    const i_inv = initialInvestment ? initialInvestment.toLocaleString(): initialInvestment;
+    const r_inv = regularInvestment ? regularInvestment.toLocaleString(): regularInvestment;
 
     return (
             <ContentsLayer>
@@ -79,20 +133,20 @@ const Calculator = ({ country }) => {
                     <div className={styles.container}>
                     <h1>예상 수익률 결과 💸</h1>
                     <div className={styles.resultcontainer}>
-                        <h3>{result.company} 주식에 {result.initial_amount} 원을  {year}년 {month}월 {day}일에 투자하고, </h3>
-                        <h3>{frequencyKorean} 마다 {result.additional_amount} 원을 투자 했다면, 지금 수익률은... </h3>
+                        <h3>{result.company} 주식에 {i_inv} {currencySymbol}을 {year}년 {month}월 {day}일에 투자하고, </h3>
+                        <h3>{frequencyMap[result.frequency] || result.frequency} 마다 {r_inv} {currencySymbol}을 투자 했다면, 지금 수익률은... </h3>
                         <div className={styles.result}>
                             <div className={styles.r}>
                                 <p className={styles.resultTitle}>총 보유 주식 수</p>
-                                <p className={styles.resultValue}>{result.total_shares.toFixed(2)} 주</p>
+                                <p className={styles.resultValue}>{result.total_shares} 주</p>
                             </div>
                             <div className={styles.r}>
                                 <p className={styles.resultTitle}>총 투자금 </p>
-                                <p className={styles.resultValue}>{result.total_investment.toLocaleString()} 원</p>
+                                <p className={styles.resultValue}>{(result.total_investment ?? 0).toLocaleString()} {currencySymbol}</p>
                             </div>
                             <div className={styles.r}>
                                 <p className={styles.resultTitle}>전체 손익금</p>
-                                <p className={styles.resultValue}> {result.total_profit_loss.toLocaleString()} 원</p>
+                                <p className={styles.resultValue}>{(result.total_profit_loss ?? 0).toLocaleString()} {currencySymbol}</p>
                             </div>
                         </div>
                         <button onClick={() => setShowResult(false)}>다시 계산하기</button>
