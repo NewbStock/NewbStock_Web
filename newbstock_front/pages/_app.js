@@ -9,6 +9,7 @@ import '../styles/global.css';
 
 const App = ({ Component, pageProps }) => {
     const [isClient, setIsClient] = useState(false);
+    const [country, setCountry] = useState('kr')
 
     useEffect(() => {
         setIsClient(true);
@@ -16,10 +17,17 @@ const App = ({ Component, pageProps }) => {
 
     return (
         <CommonLayer>
-            <Header />
+            <Header
+                country={country}
+                setCountry={setCountry}
+            />
             <SideBar />
             <InnerWrapper>    
-                <Component {...pageProps} isClient={isClient} />
+                <Component
+                    {...pageProps}
+                    isClient={isClient}
+                    country={country}
+                />
                 <Footer />
             </InnerWrapper>
         </CommonLayer>

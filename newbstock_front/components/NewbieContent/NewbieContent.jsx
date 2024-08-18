@@ -6,14 +6,14 @@ function NewbieContent() {
         <ul className={styles.chart_list}>
             <li className={styles.item}>
                 <iframe
-                    src="http://43.202.160.91:8808/explore/?standalone=1&slice_id=1"
-                    frameborder="0"
+                    src="http://127.0.0.1:8808/explore/?standalone=1&slice_id=200"
+                    frameBorder="0"
                     className={styles.chart}
                 >
                 </iframe>
             </li>
             <li className={styles.item}>
-                <iframe src="" frameborder="0" className={styles.chart}></iframe>
+                <iframe src="" frameBorder="0" className={styles.chart}></iframe>
             </li>
         </ul>
     );

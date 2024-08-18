@@ -1,13 +1,13 @@
 @charset "utf-8";
 
-/* 프로젝트 설명 및 비디오를 위한 스타일 */
 .project-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 90%;
-    padding: 30px;
+    height: 70%;
+    width: 70;
+    padding:30px;
     padding-top:100px;
 }
 
@@ -36,7 +36,9 @@
     height: auto;
 }
 
+
 /* 반응형 디자인을 위한 미디어 쿼리 */
+/*
 @media (max-width: 768px) {
     .project-description,
     .project-video {
@@ -51,3 +53,4 @@
         font-size: 16px;
     }
 }
+*/
