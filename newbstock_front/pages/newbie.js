@@ -3,9 +3,10 @@ import ContentsLayer from '../components/layout/ContentsLayer';
 import NewbieContent from '../components/NewbieContent/NewbieContent';
 import styles from '../styles/newbie.module.css';
 
-const Calculator = () => {
+const Calculator = ({country}) => {
     const [RateChange, setRateChange] = useState('monthly');
-
+    const temp = 'current country : ' + country
+    console.log(temp)
     return (
         <ContentsLayer>
             <h2 className={styles.content_title}>주식 초보자들이 알면 좋은 지식!</h2>

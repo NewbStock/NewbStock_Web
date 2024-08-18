@@ -3,15 +3,18 @@ import ContentsLayer from '../components/layout/ContentsLayer';
 import styles from '../styles/calculator.module.css'
 
 
-const Calculator = () => {
+const Calculator = ({ country }) => {
     const [stock, setStock] = useState('');
     const [initialInvestment, setInitialInvestment] = useState('');
     const [initialDate, setInitialDate] = useState('');
     const [regularInvestment, setRegularInvestment] = useState('');
     const [investmentCycle, setInvestmentCycle] = useState('monthly');
     
-    const recommendedStocks = ['삼성전자', 'SK하이닉스', 'LG에너지솔루션'];
+    const recommendedStocks = country == 'kr' ? ['삼성전자', 'SK하이닉스', 'LG에너지솔루션'] : ['엔비디아', '테슬라', '마이크로소프트'];
     const recommendedAmounts = [50000, 100000, 1000000];
+
+    const temp = 'current country : ' + country
+    console.log(temp)
 
     const handleSubmit = (e) => {
         e.preventDefault();
