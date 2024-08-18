@@ -1,184 +1,140 @@
 import React, { useState, useEffect } from 'react';
-import { apis } from '../api/request';  // Axios 설정을 불러옵니다
 import ContentsLayer from '../components/layout/ContentsLayer';
-import NewbieContent from '../components/NewbieContent/NewbieContent';
 import styles from '../styles/newbie.module.css';
-import { Chart, CategoryScale, LinearScale, Title, Tooltip, Legend, LineElement, PointElement } from 'chart.js';
-
-// Chart.js 스케일 및 플러그인, 요소 등록
-Chart.register(CategoryScale, LinearScale, Title, Tooltip, Legend, LineElement, PointElement);
+import NewbieContent from '../components/NewbieContent/NewbieContent';
+import { apis } from '../api/request';
 
 const Newbie = () => {
-    const [kospiData, setKospiData] = useState(null);
-    const [exchangeData, setExchangeData] = useState(null);
-    const [interestRateData, setInterestRateData] = useState(null);
-    const [newsSentimentData, setNewsSentimentData] = useState(null);
+    const [rateChange, setRateChange] = useState('stock'); // 선택된 옵션 상태
+    const [dates, setDates] = useState([]); // 날짜 목록 상태 추가
+    const [selectedDate, setSelectedDate] = useState(''); // 사용자가 선택한 날짜
+    const [stockData, setStockData] = useState([]);
+    const [dynamicData, setDynamicData] = useState(null); // 선택된 데이터
 
+    // 시총 상위 3개 종목 데이터를 가져옴
     useEffect(() => {
-        const date = '2022-05-02';
+        if (selectedDate) {
+            apis.getStockDataByDate(selectedDate)
+                .then(response => {
+                    setStockData(response.data); // 시총 상위 3개 종목 데이터 설정
+                })
+                .catch(error => {
+                    console.error('Error fetching stock data:', error);
+                });
+        }
+    }, [selectedDate]);
 
-        // KOSPI 데이터 가져오기
-        apis.getKospiDataByDate(date)
+    // rateChange가 변경될 때마다 데이터를 가져옴
+    useEffect(() => {
+        if (!selectedDate) return;
+
+        let fetchData;
+        switch (rateChange) {
+            case 'biweekly':
+                fetchData = apis.getKospiDataByDate(selectedDate);
+                break;
+            case 'exchange_rate':
+                fetchData = apis.getExchangeDataByDate(selectedDate);
+                break;
+            case 'news':
+                fetchData = apis.getNewsSentimentDataByDate(selectedDate);
+                break;
+            case 'interest':
+                fetchData = apis.getInterestRatesDataByDate(selectedDate);
+                break;
+            default:
+                return;
+        }
+
+        fetchData
             .then(response => {
-                const data = response.data;
-                const formattedData = {
-                    labels: data.dates,
-                    datasets: [
-                        {
-                            label: 'KOSPI',
-                            data: data.kospi,
-                            borderColor: 'rgb(75, 192, 192)',
-                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                            tension: 0.1,
-                        },
-                        {
-                            label: 'KOSDAQ',
-                            data: data.kosdaq,
-                            borderColor: 'rgb(255, 99, 132)',
-                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                            tension: 0.1,
-                        }
-                    ],
-                };
-                setKospiData(formattedData);
+                setDynamicData(response.data);
             })
             .catch(error => {
-                console.error("Error fetching KOSPI data:", error);
+                console.error(`Error fetching ${rateChange} data:`, error);
             });
+    }, [rateChange, selectedDate]);
 
-        // 환율 데이터 가져오기
-        apis.getExchangeDataByDate(date)
+    // 고변동 데이터 가져오기
+    useEffect(() => {
+        apis.getHighChangeDates()
             .then(response => {
-                const data = response.data;
-                const formattedData = {
-                    labels: data.dates,
-                    datasets: [
-                        {
-                            label: '100엔',
-                            data: data.yen_100,
-                            borderColor: 'rgb(255, 159, 64)',
-                            backgroundColor: 'rgba(255, 159, 64, 0.2)',
-                            tension: 0.1,
-                        },
-                        {
-                            label: '달러',
-                            data: data.dollar,
-                            borderColor: 'rgb(54, 162, 235)',
-                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                            tension: 0.1,
-                        },
-                        {
-                            label: '위안',
-                            data: data.yuan,
-                            borderColor: 'rgb(75, 192, 192)',
-                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                            tension: 0.1,
-                        }
-                    ],
-                };
-                setExchangeData(formattedData);
+                setDates(response.data);
+                if (response.data.length > 0) {
+                    setSelectedDate(response.data[0].date); // 기본으로 첫 번째 날짜를 선택
+                }
             })
             .catch(error => {
-                console.error("Error fetching exchange data:", error);
+                console.error('Error fetching high change dates:', error);
             });
-
-        // 금리 데이터 가져오기
-        apis.getInterestRatesDataByDate(date)
-            .then(response => {
-                const data = response.data;
-                const formattedData = {
-                    labels: data.dates,
-                    datasets: [
-                        {
-                            label: '10년 국채',
-                            data: data.treasury_10y,
-                            borderColor: 'rgb(153, 102, 255)',
-                            backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                            tension: 0.1,
-                        },
-                        {
-                            label: '2년 국채',
-                            data: data.treasury_2y,
-                            borderColor: 'rgb(255, 99, 132)',
-                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                            tension: 0.1,
-                        },
-                        {
-                            label: 'KORIBOR 12개월',
-                            data: data.koribor_12m,
-                            borderColor: 'rgb(255, 206, 86)',
-                            backgroundColor: 'rgba(255, 206, 86, 0.2)',
-                            tension: 0.1,
-                        }
-                    ],
-                };
-                setInterestRateData(formattedData);
-            })
-            .catch(error => {
-                console.error("Error fetching interest rates data:", error);
-            });
-
-        // 뉴스 심리지수 데이터 가져오기
-        apis.getNewsSentimentDataByDate(date)
-            .then(response => {
-                const data = response.data;
-                const formattedData = {
-                    labels: data.dates,
-                    datasets: [
-                        {
-                            label: '뉴스 심리지수',
-                            data: data.sentiment,
-                            borderColor: 'rgb(75, 192, 192)',
-                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                            tension: 0.1,
-                        }
-                    ],
-                };
-                setNewsSentimentData(formattedData);
-            })
-            .catch(error => {
-                console.error("Error fetching news sentiment data:", error);
-            });
-
     }, []);
 
-    const options = {
-        responsive: true,
-        plugins: {
-            legend: {
-                position: 'top',
-            },
-        },
+    // 차트 제목을 동적으로 설정
+    const getChartTitle = () => {
+        switch (rateChange) {
+            case 'stock':
+                return '주식 변동 차트';
+            case 'biweekly':
+                return 'KOSPI 지수 차트';
+            case 'exchange_rate':
+                return '환율 차트';
+            case 'news':
+                return '뉴스 심리지수 차트';
+            case 'interest':
+                return '금리 지수 차트';
+            default:
+                return '';
+        }
     };
 
     return (
         <ContentsLayer>
-            <div className={styles.newscontainer}>
-                <h2 className={styles.pageTitle}>주식 초보자들이 알면 좋은 지식!</h2>
-                <div className={styles.contents}>
-                    <p>
-                        초급에는 주식을 왜 해야하는가?, 주식이란?, 주식 시장의 흐름, 주식 투자와 거래 방법 등<br />
-                        중급에는 주식이 영향을 받는 것과 미치는 것, 코인, 채권, 지수, 재무제표, 투자자의 마인드 등
-                    </p>
-                </div>
+            {/* 날짜 선택 섹션 */}
+            <div className={styles.date_selector}>
+                <select
+                    className={styles.select}
+                    value={selectedDate}
+                    onChange={(e) => setSelectedDate(e.target.value)}
+                >
+                    <option value="">날짜 선택</option>
+                    {dates.map((item, index) => (
+                        <option key={index} value={item.date}>
+                            {item.name} - {item.date}
+                        </option>
+                    ))}
+                </select>
+            </div>
+
+            {/* 고정된 시총 상위 3개 종목 차트 */}
+            <div className={styles.chart_section}>
+                <h3 className={styles.chart_title}>현재 시총 top3</h3>
                 <div className={styles.gridContainer}>
-                    <div className={styles.gridItem}>
-                        <h3>KOSPI & KOSDAQ</h3>
-                        {kospiData && <NewbieContent data={kospiData} options={options} />}
-                    </div>
-                    <div className={styles.gridItem}>
-                        <h3>환율</h3>
-                        {exchangeData && <NewbieContent data={exchangeData} options={options} />}
-                    </div>
-                    <div className={styles.gridItem}>
-                        <h3>금리</h3>
-                        {interestRateData && <NewbieContent data={interestRateData} options={options} />}
-                    </div>
-                    <div className={styles.gridItem}>
-                        <h3>뉴스 심리지수</h3>
-                        {newsSentimentData && <NewbieContent data={newsSentimentData} options={options} />}
-                    </div>
+                    {stockData.map((stock, index) => (
+                        <div key={index} className={styles.gridItem}>
+                            <NewbieContent data={stock} type="stocktop3" />
+                        </div>
+                    ))}
                 </div>
+            </div>
+
+            {/* 선택에 따라 변하는 차트 */}
+            <div className={styles.chart_section}>
+                <div className={styles.title_area}>
+                    <select
+                        className={styles.select}
+                        id="RateChange"
+                        value={rateChange}
+                        onChange={(e) => setRateChange(e.target.value)}
+                    >
+                        <option value="stock">주식</option>
+                        <option value="biweekly">KOSPI 지수</option>
+                        <option value="exchange_rate">환율</option>
+                        <option value="news">뉴스심리지수</option>
+                        <option value="interest">금리지수</option>
+                    </select>
+                </div>
+                <h3 className={styles.chart_title}>{getChartTitle()}</h3>
+                {dynamicData && <NewbieContent data={dynamicData} type={rateChange} />}
             </div>
         </ContentsLayer>
     );

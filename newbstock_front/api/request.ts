@@ -13,8 +13,10 @@ serverApi.interceptors.request.use((config) => {
 });
 
 export const apis = {
+  getStockDataByDate: () => serverApi.get(`/newb/stocktopkr?country=kr`),
   getExchangeDataByDate: (date: string) => serverApi.get(`/newb/exchange?date=${date}`),
   getKospiDataByDate: (date: string) => serverApi.get(`/newb/kospi?date=${date}`),
   getInterestRatesDataByDate: (date: string) => serverApi.get(`/newb/interestrates?date=${date}`),
   getNewsSentimentDataByDate: (date: string) => serverApi.get(`/newb/newssentiment?date=${date}`),
+  getHighChangeDates: () => serverApi.get(`/newb/highchange?country=kr`), // 'kr' 하드코딩
 };
