@@ -18,11 +18,8 @@ export const apis = {
   getKospiDataByDate: (date: string) => serverApi.get(`/newb/kospi?date=${date}`),
   getInterestRatesDataByDate: (date: string) => serverApi.get(`/newb/interestrates?date=${date}`),
   getNewsSentimentDataByDate: (date: string) => serverApi.get(`/newb/newssentiment?date=${date}`),
-<<<<<<< HEAD
   getHighChangeDates: () => serverApi.get(`/newb/highchange?country=kr`), // 'kr' 하드코딩
-=======
   getDownTicker: (country: string) => serverApi.get(`/top3/downticker/?country=${country}`),
   getUpTicker: (country: string) => serverApi.get(`/top3/upticker/?country=${country}`),
   getTop3: (country: string, ticker: string) => serverApi.get(`/top3/top3/?country=${country}&ticker=${ticker}`),
->>>>>>> kyoungyeon
 };
