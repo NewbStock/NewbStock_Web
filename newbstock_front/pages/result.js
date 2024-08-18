@@ -31,7 +31,6 @@ const Result = () => {
 
     const frequencyKorean = frequencyMap[result.frequency] || result.frequency;
 
-
     return (
             <ContentsLayer>
                 <div className={styles.container}>
